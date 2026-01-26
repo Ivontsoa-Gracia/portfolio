@@ -1,23 +1,24 @@
 <template>
   <footer class="bg-[#030303] text-[#ECECEC] py-16 texte">
     <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
+
+      <!-- Logo / Nom -->
       <h2 class="logo-type text-2xl md:text-7xl font-semibold text-center">
         Ivo Andrianah
       </h2>
 
+      <!-- Services / Compétences -->
       <div
-        class="flex w-full md:w-[50%] flex-col md:flex-row justify-between items-center gap-4 text-sm md:text-base opacity-90 uppercase tracking-wide"
+        class="flex w-full md:w-[50%] flex-col sm:flex-row justify-center md:justify-between items-center gap-4 text-sm md:text-base opacity-90 uppercase tracking-wide"
       >
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-[#ECECEC]"></span>
           Développeur Web
         </span>
-
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-[#ECECEC]"></span>
           UI / UX Designer
         </span>
-
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-[#ECECEC]"></span>
           Graphique Créatif
@@ -26,46 +27,37 @@
 
       <div class="w-full h-px bg-[#ECECEC]/30"></div>
 
-      <div class="flex flex-col items-center gap-10">
-        <nav class="flex gap-16 text-sm">
+      <!-- Navigation et Réseaux sociaux -->
+      <div class="flex flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-col items-center gap-10">
+
+        <!-- Navigation -->
+        <nav class="flex flex-col sm:flex-row md:flex-row gap-4 sm:gap-6 md:gap-16 text-sm sm:text-sm md:text-base text-center">
           <a href="#about" class="hover:opacity-70 transition">À propos</a>
           <a href="#skills" class="hover:opacity-70 transition">Compétences</a>
           <a href="#projects" class="hover:opacity-70 transition">Projets</a>
           <a href="#contact" class="hover:opacity-70 transition">Contact</a>
         </nav>
 
-        <div class="flex gap-6 text-2xl">
-          <a
-            href="https://www.instagram.com/ivo_andrianah/"
-            target="_blank"
-            class="social"
-          >
+        <!-- Réseaux sociaux -->
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 text-2xl">
+          <a href="https://www.instagram.com/ivo_andrianah/" target="_blank" class="social">
             <i class="bx bxl-instagram"></i>
           </a>
-
-          <a
-            href="https://www.linkedin.com/in/ivontsoa-gracia-andriamihamina-31294133a/"
-            target="_blank"
-            class="social"
-          >
+          <a href="https://www.linkedin.com/in/ivontsoa-gracia-andriamihamina-31294133a/" target="_blank" class="social">
             <i class="bx bxl-linkedin"></i>
           </a>
-
-          <a
-            href="https://github.com/Ivontsoa-Gracia"
-            target="_blank"
-            class="social"
-          >
+          <a href="https://github.com/Ivontsoa-Gracia" target="_blank" class="social">
             <i class="bx bxl-github"></i>
           </a>
-
           <a href="#" class="social">
             <i class="bx bxl-discord-alt"></i>
           </a>
         </div>
+
       </div>
     </div>
 
+    <!-- Copyright -->
     <div class="mt-20 text-center text-[#ECECEC]/70 text-sm px-6">
       © 2025 Ivo Andrianah. Tous droits réservés.
     </div>

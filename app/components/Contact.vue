@@ -1,6 +1,7 @@
 <template>
   <section id="contact" class="py-16 bg-[#030303] text-white relative">
     <div class="mx-auto">
+
       <div
         class="mb-12 relative z-50 h-[525px] flex flex-col px-4 sm:px-8 lg:px-20"
       >
@@ -32,9 +33,12 @@
         </div>
       </div>
 
+      <!-- Section contact principale -->
       <section class="w-full bg-[#ECECEC] py-16 px-4 sm:px-8 lg:px-20">
         <div class="max-w-7xl mx-auto">
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Info de contact -->
             <div
               class="hidden lg:flex flex-col gap-8 text-[#131629]"
               data-aos="fade-up"
@@ -55,7 +59,7 @@
                   </div>
                   <div>
                     <h4 class="font-semibold">Email</h4>
-                    <p class="text-gray-700">ivoandrianah@gmail.com</p>
+                    <p class="text-gray-700 break-all">ivoandrianah@gmail.com</p>
                   </div>
                 </div>
 
@@ -67,14 +71,15 @@
                   </div>
                   <div>
                     <h4 class="font-semibold">WhatsApp</h4>
-                    <p class="text-gray-700">+261 32 35 495 94</p>
+                    <p class="text-gray-700 break-all">+261 32 35 495 94</p>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- Formulaire -->
             <div
-              class="lg:col-span-2 backdrop-blur-sm rounded-2xl w-full max-w-[600px] shadow-lg relative -top-10 mx-auto -top-48"
+              class="lg:col-span-2 backdrop-blur-sm rounded-2xl w-full max-w-[600px] shadow-lg relative mx-auto top-0 sm:-top-32"
               data-aos="fade-up"
             >
               <div
@@ -82,8 +87,7 @@
                 data-aos="fade-up"
               >
                 <p class="text-gray-700 text-md sm:text-xl font-medium mb-0">
-                  Vous avez un projet digital ou souhaitez collaborer sur une
-                  idée créative ?Contactez-moi dès maintenant !
+                  Vous avez un projet digital ou souhaitez collaborer sur une idée créative ? Contactez-moi dès maintenant !
                 </p>
               </div>
 
@@ -117,10 +121,10 @@
                       class="w-full px-4 py-3 rounded-md shadow-sm bg-gray-100 border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-600"
                       required
                     />
-                    <div class="flex">
+                    <div class="flex flex-col sm:flex-row gap-2">
                       <select
                         v-model="form.country_code"
-                        class="px-4 py-3 bg-gray-100 border border-gray-300 text-gray-900 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+                        class="px-4 py-3 bg-gray-100 border border-gray-300 text-gray-900 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-600 w-full sm:w-[120px]"
                       >
                         <option
                           v-for="country in countries"
@@ -156,6 +160,7 @@
                 </form>
               </div>
             </div>
+
           </div>
         </div>
       </section>

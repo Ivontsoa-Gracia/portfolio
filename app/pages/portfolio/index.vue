@@ -56,14 +56,12 @@
           <div
             class="absolute inset-0 bg-[#8249CC]/90 flex flex-col justify-center items-center p-4 text-center transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-in-out"
           >
-            <h3
-              class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2 texte"
+            <NuxtLink
+              :to="`/portfolio/${toSlug(proj.titre)}`"
+              class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2 texte hover:underline"
             >
               {{ proj.titre }}
-            </h3>
-            <p class="text-gray-200 text-xs sm:text-sm texte">
-              {{ proj.description }}
-            </p>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -91,6 +89,15 @@ const filteredProjects = computed(() => {
 
 function selectService(service) {
   selectedService.value = service;
+}
+
+function toSlug(title) {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 </script>
 

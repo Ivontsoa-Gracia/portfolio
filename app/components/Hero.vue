@@ -2,9 +2,7 @@
   <section
     class="relative min-h-screen w-full flex flex-col items-center justify-center px-10 lg:px-24 bg-[#030303] text-white"
   >
-    <!-- TEXTE CENTRAL -->
     <div class="text-center space-y-6 z-20">
-      <!-- Logo -->
       <h1 data-aos="fade-down">
         <img
           src="/logo_gracia.png"
@@ -13,13 +11,10 @@
         />
       </h1>
 
-      <h2
-        class="text-2xl font-light mt-4"
-        data-aos="fade-up"
+      <h2 id="animation-type" class="text-2xl font-light mt-4"
+      data-aos="fade-up"
         data-aos-delay="200"
-      >
-        Exploratrice d’idées, à la recherche d’expériences uniques
-      </h2>
+        >Le centre n’est jamais neutre</h2>
     </div>
 
     <div
@@ -53,7 +48,6 @@
       </a>
     </div>
 
-    <!-- PARTICULES -->
     <div
       ref="magicParticles"
       class="absolute inset-0 pointer-events-none overflow-hidden z-10"
@@ -63,6 +57,26 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+
+onMounted(() => {
+  const phrase = "Le centre n’est jamais neutre.";
+  const el = document.getElementById("animation-type");
+
+  if (!el) return;
+
+  let letterIndex = 0;
+  const speed = 100;
+
+  function type() {
+    if (letterIndex <= phrase.length) {
+      el.textContent = phrase.slice(0, letterIndex);
+      letterIndex++;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
+});
 
 const magicParticles = ref(null);
 
@@ -237,5 +251,8 @@ onMounted(() => {
   animation-delay: 6s;
 }
 
-/* Style réseaux sociaux */
+#typing-text::after {
+  content: "|";
+  animation: blink 0.7s infinite;
+}
 </style>

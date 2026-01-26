@@ -52,6 +52,8 @@
           class="flex-shrink-0 h-64 relative overflow-hidden rounded-2xl shadow-md"
           :style="{ width: `calc(100% - 1rem)` }"
         >
+        <NuxtLink
+      :to="`/portfolio/${toSlug(proj.titre)}`">
           <img
             :src="proj.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')"
             alt=""
@@ -63,6 +65,7 @@
             <h3 class="text-white font-bold logo-type">{{ proj.titre }}</h3>
             <p class="text-gray-200 text-sm">{{ proj.service }}</p>
           </div>
+        </NuxtLink>
         </div>
       </div>
 
@@ -120,6 +123,15 @@ function getColRowClass(i) {
     default:
       return "col-span-4 row-span-4 bg-gray-700";
   }
+}
+
+function toSlug(title) {
+  return title
+    .toLowerCase()
+    .normalize("NFD")                
+    .replace(/[\u0300-\u036f]/g, "") 
+    .replace(/[^a-z0-9]+/g, "-")    
+    .replace(/(^-|-$)/g, "");      
 }
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <section class="w-full px-6 md:px-20 py-20 bg-[#030303] text-white">
-    <!-- TITRE -->
     <div class="max-w-4xl mb-14">
       <h2
         class="text-3xl md:text-4xl font-semibold mb-4 texte uppercase tracking-wide"
@@ -8,16 +7,15 @@
         Compétences
       </h2>
       <p class="text-sm md:text-base opacity-80 leading-relaxed">
-        Je développe des applications web en combinant un back-end structuré
-        avec des interfaces simples et efficaces. J’aborde chaque problème de
-        manière méthodique, en analysant les besoins et en explorant différentes
-        solutions jusqu’à obtenir un résultat fiable. Bien que plus à l’aise
-        côté back-end, je veille toujours à offrir une expérience utilisateur
-        claire et cohérente.
+        Je développe des sites et applications web en mettant l’accent sur
+        l’expérience utilisateur et le design. Mon approche combine logique
+        technique et sens du détail visuel : je crée des interfaces fluides,
+        intuitives et esthétiques, où chaque interaction est pensée pour être
+        agréable et efficace. Mon objectif est de transformer des idées en
+        expériences digitales cohérentes et mémorables.
       </p>
     </div>
 
-    <!-- ACCORDION -->
     <section class="flex flex-col md:flex-row gap-3 min-h-[420px]">
       <div
         v-for="(item, index) in items"
