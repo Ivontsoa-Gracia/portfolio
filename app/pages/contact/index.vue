@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white text-black overflow-y-hidden">
+  <div class="min-h-screen bg-white text-black overflow-y-hidden overflow-x-hidden">
     <Contact />
     <Footer />
   </div>

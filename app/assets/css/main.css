@@ -1,3 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #FF812C;
+  --color-dark: #9A0130;
+  --color-light: #FC523B;
+  --color-yellow: #FFAB0D;
+  --color-yellow: #F5EE6C;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center text-center gap-3 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 shadow-lg ;
+  background-color: var(--color-dark);
+}
+
+.btn-primary:hover {
+  background-color: #D0013F; 
+}
+
+.btn-secondary {
+  @apply inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 shadow-lg bg-transparent border;
+  border-color: var(--color-dark);
+  color: var(--color-dark)
+}
+
+.badge {
+  @apply px-3 py-1 text-xs rounded-full bg-[#9A0130]/20  text-[#9A0130];
+}
+
+.sous-titre {
+  @apply text-[#9A0130] text-xs uppercase tracking-[0.2em] tracking-widest;
+}
+.heading {
+  @apply text-2xl md:text-3xl font-semibold text-black leading-tight;
+}
+
+.social {
+  @apply w-10 h-10
+         flex items-center justify-center border
+         rounded-full;
+         color: var(--color-dark);
+         border-color: var(--color-dark);
+}
+
+.social_white {
+  @apply w-10 h-10
+         flex items-center justify-center border
+         rounded-full;
+         color: #fff;
+         border-color: #fff;
+}
+
+.glass-col {
+  position: relative;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 1px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+/* courbure quasi invisible */
+.glass-col::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.03) 50%,
+    rgba(120,120,120,0.05) 100%
+  );
+
+  opacity: 0.25;
+}
+
+/* ombre interne gris profond TRÈS légère */
+.glass-col::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  box-shadow: inset 0 0 8px rgba(120,120,120,0.06);
+}
+
+/* centre à peine plus présent */
+.glass-center {
+  backdrop-filter: blur(24px);
+  background: rgba(255,255,255,0.06);
+}
+
+
+.text-bold {
+  @apply leading-relaxed font-gebuk;
+}
+
+.card-skill {
+  @apply p-6 rounded-3xl bg-white border border-black/10 shadow-sm hover:shadow-md transition;
+}
+
+.card-skill h3 {
+  @apply text-base font-semibold;
+}
+
+.chip {
+  @apply text-xs px-3 py-1.5 rounded-full bg-[#000]/10 border border-[#000]/70 text-[#000]/80;
+}
+
+.badge-soft {
+  @apply text-xs px-3 py-1.5 rounded-full bg-gradient-to-br from-black to-gray-700 text-white;
+}
+
+.sidebar-item {
+  @apply flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm text-[#9A0130]/60 hover:bg-[#9A0130]/5 transition;
+}
+
+.sidebar-item.active {
+  @apply bg-[#9A0130] text-white;
+}
+
+.card-content {
+  @apply p-6 rounded-2xl bg-white border border-black/10 shadow-sm min-h-[300px];
+}
+
+.card-soft {
+  @apply p-6 rounded-2xl bg-black/5 border border-black/10;
+}
+
+.chip {
+  @apply text-xs px-3 py-1.5 rounded-full bg-black/5 border border-black/10 text-black/70 flex items-center gap-2;
+}
+
+.badge-soft {
+  @apply text-xs px-3 py-1.5 rounded-full bg-gradient-to-br from-black to-gray-700 text-white;
+}
+
+/* animation */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+
 .Birthstone-Casual-Regular{
     font-family: 'Birthstone-Casual-Regular';
 }
+
