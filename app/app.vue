@@ -24,46 +24,44 @@ useHead({
     {
       name: "description",
       content:
-        "Ivo Andrianah est une developpeuse web , UI/Ux designer et Graphist creative",
+        "Ivo Andrianah est ingénieure logicielle, designer UI/UX et designer de marque. Elle conçoit des systèmes digitaux modernes, centrés utilisateur et orientés produit.",
     },
     {
       name: "keywords",
       content:
-        "portfolio, developpeur, développement site web, design UI/UX",
+        "portfolio, ingénieure logicielle, développeuse web, UI UX designer, brand designer, design produit, développement web Madagascar, systèmes digitaux, interface utilisateur",
     },
     { name: "robots", content: "index, follow" },
 
     {
       property: "og:title",
-      content:
-        "Ivo Andrianah - Développement Web, Design UI/UX",
+      content: "Ivo Andrianah — Ingénieure Logicielle & UI/UX Designer",
     },
     {
       property: "og:description",
       content:
-        "Ivo Andrianah, votre partenaire à Madagascar pour le développement web, design UI/UX",
+        "Portfolio d’Ivo Andrianah : conception et développement de systèmes digitaux, design UI/UX et création d’identités de marque.",
     },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://nerah-agency.vercel.app/" },
+    { property: "og:url", content: "https://portfolio-andrianah.vercel.app/" },
     {
       property: "og:image",
-      content: "https://nerah-agency.vercel.app/logo.png",
+      content: "https://portfolio-andrianah.vercel.app/logo.png",
     },
 
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content:
-        "Ivo Andrianah - Portfolio",
+      content: "Ivo Andrianah — Portfolio Ingénierie & Design",
     },
     {
       name: "twitter:description",
       content:
-        "Ivo Andrianah, votre partenaire à Madagascar pour le développement web, design UI/UX",
+        "Ingénieure logicielle et designer UI/UX, spécialisée dans les systèmes digitaux et les expériences produit.",
     },
     {
       name: "twitter:image",
-      content: "https://nerah-agency.vercel.app/logo.png",
+      content: "https://portfolio-andrianah.vercel.app/logo.png",
     },
   ],
   link: [
@@ -162,7 +160,6 @@ useHead({
       crossorigin: "anonymous",
     },
   ],
-  
 });
 </script>
 
@@ -187,17 +184,10 @@ useHead({
 }
 
 @font-face {
-  font-family: "Akrux-Light";
-  src: url("/font/Akrux-Light.otf") format("opentype");
-}
-@font-face {
-  font-family: "dramaturg";
-  src: url("/font/sc.otf") format("opentype");
-}
-@font-face {
   font-family: "Poppins";
   src: url("/font/Poppins-Regular.ttf") format("opentype");
 }
+
 @font-face {
   font-family: "Birthstone-Casual-Regular";
   src: url("/font/Birthstone-Casual-Regular.ttf") format("opentype");

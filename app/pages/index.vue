@@ -1,47 +1,83 @@
 <template>
   <div
-    class="flex flex-col items-center justify-center min-h-screen bg-[#030303] px-4 sm:px-6 md:px-8 space-y-4 sm:space-y-6"
+    class="min-h-screen bg-[#f1f1f1] text-black overflow-y-hidden overflow-x-hidden relative"
   >
     <div
-      ref="animationContainer"
-      class="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 -mb-4 sm:-mb-6"
+      class="absolute top-64 -right-32 w-[800px] h-[500px] sm:bg-[#F5EE6C] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
     ></div>
 
     <div
-      class="flex flex-col items-center md:items-start -mt-6 sm:-mt-10 md:-mt-12"
+      class="absolute top-48 -left-80 w-[1000px] h-[400px] sm:bg-[#FC523B] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
+    ></div>
+
+    <div
+      class="absolute -top-48 right-[-100px] w-[800px] h-[400px] bg-[#FF812C] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
+    ></div>
+
+    <section id="accueil">
+      <Hero />
+    </section>
+    <section id="a-propos">
+      <About />
+    </section>
+    <section id="vision">
+      <Vision />
+      <Processus />
+    </section>
+    <section id="expertise">
+      <Skills />
+    </section>
+    <section id="services">
+      <Services />
+    </section>
+    <section id="projets">
+      <Projets />
+    </section>
+    <Formations />
+    <Footer />
+    <div
+      ref="magicParticles"
+      class="absolute inset-0 pointer-events-none overflow-hidden z-10"
     ></div>
   </div>
-  <div
-    ref="magicParticles"
-    class="absolute inset-0 pointer-events-none overflow-hidden z-10"
-  ></div>
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "custom",
+});
+
+import Hero from "~/components/Hero.vue";
+import About from "~/components/About.vue";
+import Formations from "~/components/Formations.vue";
+import Processus from "~/components/Processus.vue";
+import Vision from "~/components/Vision.vue";
+import Services from "~/components/Services.vue";
+import Resultats from "~/components/Resultats.vue";
+import Footer from "~/components/Footer.vue";
+import Skills from "~/components/Skills.vue";
+import Projets from "~/components/Projets.vue";
+
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import lottie from "lottie-web";
 
-const animationContainer = ref(null);
-const router = useRouter();
+onMounted(() => {
+  const phrase = "Le centre n’est jamais neutre.";
+  const el = document.getElementById("animation-type");
 
-onMounted(async () => {
-  const animationData = (await import("~/utils/ivo_logo_animation.json"))
-    .default;
+  if (!el) return;
 
-  if (!animationContainer.value) return;
+  let letterIndex = 0;
+  const speed = 100;
 
-  const animation = lottie.loadAnimation({
-    container: animationContainer.value,
-    renderer: "svg",
-    loop: false,
-    autoplay: true,
-    animationData,
-  });
+  function type() {
+    if (letterIndex <= phrase.length) {
+      el.textContent = phrase.slice(0, letterIndex);
+      letterIndex++;
+      setTimeout(type, speed);
+    }
+  }
 
-  animation.addEventListener("complete", () => {
-    router.push("/main");
-  });
+  type();
 });
 
 const magicParticles = ref(null);
@@ -93,12 +129,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.agency {
-  letter-spacing: 30px;
+.link {
+  @apply text-white hover:text-gray-300 transition duration-300;
 }
-
 .logo-type {
-  letter-spacing: 8px;
   font-family: "Pirulen", sans-serif;
   letter-spacing: 2px;
   font-weight: normal;

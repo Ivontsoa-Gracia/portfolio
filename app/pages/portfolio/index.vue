@@ -1,72 +1,96 @@
 <template>
-  <section class="py-12 bg-[#030303] pt-14 sm:pt-48 min-h-screen">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="bg-[#f1f1f1] min-h-screen px-4 py-28 sm:p-28">
+    <div class="mx-auto">
       <h1
-        class="text-4xl sm:text-3xl font-bold text-[#ECECEC] mb-8 texte text-center uppercase tracking-wide"
+        class="text-xl md:text-3xl font-semibold text-center text-black mb-10 tracking-wide"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-delay="100"
       >
         Mes projets
       </h1>
 
-      <div
-        class="flex flex-wrap gap-4 mb-24 justify-center text-sm sm:text-base texte"
-      >
-        <a
-          href="#"
-          @click.prevent="selectService('')"
-          :class="[
-            'relative px-3 py-1 text-[#ECECEC] transition-colors after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-[#ECECEC] after:transition-all',
+      <div class="flex flex-wrap justify-center gap-2 mb-16">
+        <button
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
+          @click="selectService('')"
+          class="px-4 py-2 rounded-full text-sm transition border"
+          :class="
             selectedService === ''
-              ? 'after:w-full'
-              : 'hover:after:w-full focus:after:w-full',
-          ]"
+              ? 'bg-black text-white'
+              : 'bg-white/40 text-black hover:bg-white'
+          "
         >
           Tous
-        </a>
+        </button>
 
-        <a
+        <button
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
           v-for="(service, index) in uniqueServices"
           :key="index"
-          href="#"
-          @click.prevent="selectService(service)"
-          :class="[
-            'relative px-3 py-1 text-[#ECECEC] transition-colors after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-[#ECECEC] after:transition-all',
+          @click="selectService(service)"
+          class="px-4 py-2 rounded-full text-sm transition border"
+          :class="
             selectedService === service
-              ? 'after:w-full'
-              : 'hover:after:w-full focus:after:w-full',
-          ]"
+              ? 'bg-black text-white'
+              : 'bg-white/40 text-black hover:bg-white'
+          "
         >
           {{ service }}
-        </a>
+        </button>
       </div>
 
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 texte"
-      >
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
           v-for="(proj, index) in filteredProjects"
           :key="index"
-          class="relative bg-white/10 backdrop-blur-md rounded-sm shadow-sm cursor-pointer overflow-hidden transition transform hover:scale-105 group"
+          class="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-500"
         >
-          <img
-            :src="proj.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')"
-            :alt="proj.titre"
-            class="w-full h-48 sm:h-56 md:h-64 object-cover"
-          />
+          <div class="relative overflow-hidden h-64">
+            <img
+              :src="proj.image[0].replace(/\.(jpg|jpeg|png)$/i, '.webp')"
+              class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+            />
+
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
+            ></div>
+          </div>
+
+          <div class="p-4 flex items-center justify-between">
+            <div class="flex flex-col gap-2">
+              <span class="text-xs text-[#9A0130]">
+                {{ proj.categorie }}
+              </span>
+
+              <h3 class="text-sm font-medium text-black line-clamp-1">
+                {{ proj.titre }}
+              </h3>
+            </div>
+          </div>
 
           <div
-            class="absolute inset-0 bg-[#8249CC]/90 flex flex-col justify-center items-center p-4 text-center transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-in-out"
+            class="absolute inset-0 bg-[#9A0130]/60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center"
           >
             <NuxtLink
               :to="`/portfolio/${toSlug(proj.titre)}`"
-              class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2 texte hover:underline"
+              class="text-white text-sm tracking-wide border border-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition"
             >
-              {{ proj.titre }}
+              Voir le projet
             </NuxtLink>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <Footer />
 </template>
 

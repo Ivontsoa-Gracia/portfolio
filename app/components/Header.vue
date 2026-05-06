@@ -1,150 +1,200 @@
 <template>
-  <nav
-    class="fixed top-0 left-0 w-full z-50 py-4 px-6 sm:px-12 md:px-16 backdrop-blur-lg"
+  <header
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-6xl transition-all duration-300 rounded-full p-2"
+    :class="
+      scrolled
+        ? 'bg-white/40 backdrop-blur-xl shadow-md border border-white'
+        : 'bg-transparent border border-transparent'
+    "
   >
-    <div class="flex justify-between items-center">
-      <div
-        class="text-2xl font-pirulen tracking-widest text-[#e0e5ea] select-none"
-      >
-        <img
-          src="/logo_gracia.png"
-          alt="Ivo andrianah"
-          class="h-8 w-auto object-contain"
-        />
-      </div>
+    <div class="flex items-center justify-between px-4">
+      <div class="text-lg text-[#9A0130] font-semibold">Portfolio</div>
 
-      <button
-        @click="toggleMenu"
-        class="relative w-8 h-3 flex flex-col justify-between items-start pl-[2px] group z-[60]"
+      <nav
+        class="hidden md:flex items-center gap-8 text-sm text-black/80 font-medium relative"
       >
-        <span
-          :class="[
-            'block h-[3px] w-[100%] bg-[#e0e5ea] rounded-full transition-all duration-300 origin-left',
-            isOpen ? 'rotate-45 -translate-y-[9px]  w-[50%]' : '',
-          ]"
-        ></span>
-        <span
-          :class="[
-            'block h-[3px] w-[50%] bg-[#e0e5ea] rounded-full transition-all duration-300 origin-left',
-            isOpen ? '-rotate-45 -translate-y-[9px] w-[50%]' : '',
-          ]"
-        ></span>
+        <template v-for="link in links" :key="link.name">
+          <a
+            v-if="link.type === 'link'"
+            :href="link.href"
+            class="nav-link"
+            @click="closeAll"
+          >
+            {{ link.name }}
+          </a>
+
+          <button v-else @click="scrollToSection(link.target)" class="nav-link">
+            {{ link.name }}
+          </button>
+        </template>
+
+        <div class="relative hidden">
+          <button @click="toggleDropdown('blog')" class="nav-link">Blog</button>
+
+          <div v-if="dropdown === 'blog'" class="dropdown">
+            <a href="#" class="dropdown-item">Articles</a>
+            <a href="#" class="dropdown-item">Tutoriels</a>
+          </div>
+        </div>
+      </nav>
+
+      <button @click="$router.push('/contact')" class="btn-primary">
+        Me contacter
+      </button>
+
+      <button class="md:hidden text-2xl" @click="isOpen = !isOpen">
+        <i :class="isOpen ? 'bx bx-x' : 'bx bx-menu'"></i>
       </button>
     </div>
 
-    <transition name="slide-right">
-      <div
-        v-if="isOpen"
-        class="fixed top-0 right-0 h-screen w-[220px] bg-[#030303]/95 backdrop-blur-5l border-l border-[#e0e5ea]/10 shadow-lg z-50 animate-slide-right text-default"
-      >
-        <div
-          class="flex flex-col justify-center items-start h-full space-y-6 px-6"
-        >
-          <button
-            @click="goToHome"
-            class="flex items-center gap-3 text-[#e0e5ea] text-lg font-normal hover:text-[#8249CC] transition-all duration-300"
+    <div
+      v-if="isOpen"
+      class="md:hidden mt-4 rounded-3xl bg-white/90 backdrop-blur-xl border border-black/10 shadow-lg overflow-hidden"
+    >
+      <div class="flex flex-col gap-4 p-6 text-black/70 text-left">
+        <template v-for="link in links" :key="link.name">
+          <a
+            v-if="link.type === 'link'"
+            :href="link.href"
+            class=""
+            @click="closeAll"
           >
-            <i class="bxr bx-home-alt-2 text-xl"></i>
-            Accueil
-          </button>
+            {{ link.name }}
+          </a>
 
           <button
-            @click="goToAbout"
-            class="flex items-center gap-3 text-[#e0e5ea] text-lg font-normal hover:text-[#8249CC] transition-all duration-300"
+            v-else
+            @click="scrollToSection(link.target)"
+            class="text-left"
           >
-            <i class="bxr bx-book-bookmark text-xl"></i>
-            À propos
+            {{ link.name }}
           </button>
-          <button
-            @click="goToPortfolios"
-            class="flex items-center gap-3 text-[#e0e5ea] text-lg font-normal hover:text-[#8249CC] transition-all duration-300"
-          >
-            <i class="bxr bx-images text-xl"></i>
-            Projects
-          </button>
+        </template>
 
-          <button
-            @click="goToContact"
-            class="flex items-center gap-3 text-[#e0e5ea] text-lg font-normal hover:text-[#8249CC] transition-all duration-300"
-          >
-            <i class="bxr bx-phone-book text-xl"></i>
-            Contact
-          </button>
-        </div>
+        <button @click="$router.push('/contact')" class="mt-2 btn-primary">
+          Me contacter
+        </button>
       </div>
-    </transition>
-  </nav>
+    </div>
+  </header>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { navigateTo } from "#app";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
-const isOpen = ref(false);
-const toggleMenu = () => (isOpen.value = !isOpen.value);
+import { useRouter, useRoute } from "vue-router";
 
-const navigateAndClose = (path) => {
-  isOpen.value = false;
-  navigateTo(path);
+const router = useRouter();
+const route = useRoute();
+
+const scrollToSection = async (id) => {
+  if (route.path !== "/") {
+    await router.push("/"); 
+
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 300);
+  } else {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 };
 
-const goToHome = () => navigateAndClose("/main");
-const goToAbout = () => navigateAndClose("/main#about");
-const goToPortfolios = () => navigateAndClose("/portfolio");
-const goToContact = () => navigateAndClose("/contact");
-const restart = () => navigateAndClose("/");
+const isOpen = ref(false);
+const scrolled = ref(false);
+const dropdown = ref(null);
+
+const links = [
+  { name: "Accueil", type: "scroll", target: "accueil" },
+  { name: "À propos", type: "scroll", target: "a-propos" },
+  { name: "Expertise", type: "scroll", target: "expertise" },
+  { name: "Services", type: "scroll", target: "services" },
+  { name: "Vision", type: "scroll", target: "vision" },
+  { name: "Projets", type: "scroll", target: "projets" },
+  // { name: "Projets", type: "link", href: "/portfolio" },
+];
+
+const toggleDropdown = (menu) => {
+  dropdown.value = dropdown.value === menu ? null : menu;
+};
+
+const closeAll = () => {
+  dropdown.value = null;
+  isOpen.value = false;
+};
+
+const handleScroll = () => {
+  scrolled.value = window.scrollY > 10;
+  dropdown.value = null;
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
+// const scrollToSection = (id) => {
+//   const el = document.getElementById(id);
+//   if (el) {
+//     el.scrollIntoView({ behavior: "smooth" });
+//   }
+// };
 </script>
 
 <style scoped>
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: 0.3s;
 }
 
-.slide-right-enter-from,
-.slide-right-leave-to {
-  transform: translateX(100%);
-  opacity: 0;
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: #000;
+  transition: width 0.3s ease;
 }
 
-.slide-right-enter-to,
-.slide-right-leave-from {
-  transform: translateX(0);
-  opacity: 1;
+.nav-link:hover::after {
+  width: 100%;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: all 0.4s ease;
-}
-.slide-right-enter-from,
-.slide-right-leave-to {
-  transform: translateX(100%);
-  opacity: 0;
+/* DROPDOWN CLEAN */
+.dropdown {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  min-width: 160px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.logo-type {
-  font-family: "Birthstone-Casual-Regular", sans-serif;
-  letter-spacing: 2px;
+.dropdown-item {
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
-.text-default {
-  color: #e0e5ea;
-  letter-spacing: 1px;
-  font-family: "Helvetica", sans-serif;
-}
-
-.text-default {
-  letter-spacing: 1px;
-  font-family: "Helvetica", sans-serif;
+.dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 </style>

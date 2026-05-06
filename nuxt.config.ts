@@ -1,8 +1,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
-  css: ['./app/assets/css/main.css'],
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
+  css: ['@/assets/css/main.css'],
+  tailwindcss: {
+    configPath: 'tailwind.config.ts',
+  },
+
   app: {
     head: {
       htmlAttrs: {

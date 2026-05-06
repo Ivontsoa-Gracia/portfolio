@@ -1,143 +1,170 @@
 <template>
-  <section
-    class="w-full h-auto max-h-[1500px] px-6 md:px-20 py-12 bg-[#030303] text-white relative"
-  >
-    <div
-      class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 sm:gap-0"
-    >
-      <h2 class="text-3xl sm:text-4xl font-bold texte" data-aos="fade-up">
-        Mes projets
-      </h2>
-      <button
-        @click="goToPortfolio"
-        class="relative text-white transition flex items-center gap-2 group"
-        data-aos="fade-up"
-      >
+  <section class="w-full bg-[#f1f1f1] px-6 md:px-20 py-20 flex justify-center">
+    <div class="w-full max-w-6xl flex flex-col gap-12">
+      <div class="flex flex-col items-center text-center">
         <span
-          class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 group-hover:after:w-full"
+          class="sous-titre"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
         >
-          Voir plus de projets
+          Portfolio
         </span>
-        <i
-          class="bx bx-right-arrow-alt text-lg transition-transform duration-300 group-hover:translate-x-1"
-        ></i>
-      </button>
-    </div>
 
-    <div
-      class="hidden sm:grid grid-cols-12 grid-rows-6 gap-4 max-h-[900px] overflow-hidden"
-    >
-      <div
-        v-for="(proj, i) in firstProjects"
-        :key="i"
-        :class="
-          getColRowClass(i) +
-          ' rounded-2xl overflow-hidden shadow-md relative group cursor-pointer'
-        "
-      >
-        <img :src="proj.image" alt="" class="w-full h-full object-cover" />
-        <Overlay :proj="proj" />
+        <h2
+          class="text-2xl md:text-3xl font-semibold text-black"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
+        >
+          Mes projets
+        </h2>
       </div>
-    </div>
 
-    <div class="sm:hidden relative">
       <div
-        ref="slider"
-        class="flex transition-transform duration-700 ease-in-out gap-4"
-        :style="{ transform: `translateX(-${activeIndex * 100}%)` }"
+        class="flex overflow-x-auto gap-2 justify-start md:justify-center pb-3"
       >
         <div
-          v-for="(proj, index) in firstProjects"
-          :key="index"
-          class="flex-shrink-0 h-64 relative overflow-hidden rounded-2xl shadow-md"
-          :style="{ width: `calc(100% - 1rem)` }"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
+          v-for="filter in ['all', ...services]"
+          :key="filter"
+          @click="selected = filter"
+          class="relative px-4 py-1.5 rounded-full text-sm cursor-pointer transition-all duration-300 whitespace-nowrap"
+          :class="
+            selected === filter
+              ? 'text-[#9A0130] font-medium'
+              : 'text-black/50 hover:text-[#9A0130]'
+          "
         >
-        <NuxtLink
-      :to="`/portfolio/${toSlug(proj.titre)}`">
-          <img
-            :src="proj.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')"
-            alt=""
-            class="w-full h-full object-cover"
-          />
-          <div
-            class="absolute inset-0 bg-[#131629]/50 flex flex-col justify-end p-4"
-          >
-            <h3 class="text-white font-bold logo-type">{{ proj.titre }}</h3>
-            <p class="text-gray-200 text-sm">{{ proj.service }}</p>
-          </div>
-        </NuxtLink>
+          <span
+            v-if="selected === filter"
+            class="absolute left-0 right-0 -bottom-1 h-[2px] bg-[#9A0130] rounded-full"
+          ></span>
+
+          {{ filter === "all" ? "Tous" : filter }}
         </div>
       </div>
 
-      <div class="flex justify-center mt-4 gap-2">
-        <span
-          v-for="(proj, index) in firstProjects"
-          :key="'dot-' + index"
-          @click="activeIndex = index"
-          class="w-3 h-3 rounded-full cursor-pointer"
-          :class="activeIndex === index ? 'bg-white' : 'bg-gray-500/50'"
-        ></span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100"
+          v-for="(proj, index) in visibleProjects"
+          :key="index"
+          class="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-500"
+        >
+          <div class="relative overflow-hidden h-64">
+            <img
+              :src="proj.image[0].replace(/\.(jpg|jpeg|png)$/i, '.webp')"
+              class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+            />
+
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
+            ></div>
+          </div>
+
+          <div class="p-4 flex items-center justify-between">
+            <div class="flex flex-col gap-2">
+              <span class="text-xs text-[#9A0130]">
+                {{ proj.categorie }}
+              </span>
+
+              <h3 class="text-sm font-medium text-black line-clamp-1">
+                {{ proj.titre }}
+              </h3>
+            </div>
+          </div>
+
+          <div
+            class="absolute inset-0 bg-[#9A0130]/60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center"
+          >
+            <NuxtLink
+              :to="`/portfolio/${toSlug(proj.titre)}`"
+              class="text-white text-sm tracking-wide border border-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition"
+            >
+              Voir le projet
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex justify-center"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-delay="100"
+      >
+        <button
+          v-if="filtered.length > limit"
+          class="btn-primary"
+          @click="router.push('/portfolio')"
+        >
+          Voir plus de projets
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { portfolio } from "~/utils/portfolio.js";
-import Overlay from "~/components/Overlay.vue";
-import { useRouter } from "vue-router";
-
+import { ref, computed } from "vue";
+import { portfolio } from "~/utils/portfolio";
 const router = useRouter();
-function goToPortfolio() {
-  router.push("/portfolio");
-}
 
-const firstProjects = portfolio.slice(0, 6);
+const selected = ref("all");
+const limit = ref(6);
 
-const activeIndex = ref(0);
-let interval = null;
-onMounted(() => {
-  interval = setInterval(() => {
-    activeIndex.value = (activeIndex.value + 1) % firstProjects.length;
-  }, 3000);
+const showAll = ref({});
+
+const favorites = ref({});
+
+const toggleFavorite = (i) => {
+  favorites.value[i] = !favorites.value[i];
+};
+
+// services uniques
+const services = [...new Set(portfolio.map((p) => p.service))];
+
+// filtrage
+const filtered = computed(() => {
+  if (selected.value === "all") return portfolio;
+  return portfolio.filter((p) => p.service === selected.value);
 });
-onBeforeUnmount(() => {
-  clearInterval(interval);
+
+// projets visibles (limite 6)
+const visibleProjects = computed(() => {
+  return filtered.value.slice(0, limit.value);
 });
 
-function getColRowClass(i) {
-  switch (i) {
-    case 0:
-      return "col-span-4 row-span-8 bg-purple-600";
-    case 1:
-      return "col-span-8 row-span-4 bg-emerald-500";
-    case 2:
-      return "col-span-4 row-span-4 bg-pink-500";
-    case 3:
-      return "col-span-4 row-span-4 bg-yellow-500";
-    case 4:
-      return "col-span-8 row-span-4 bg-blue-500";
-    case 5:
-      return "col-span-4 row-span-4 bg-red-500";
-    default:
-      return "col-span-4 row-span-4 bg-gray-700";
-  }
-}
+const loadMore = () => {
+  limit.value = filtered.value.length;
+};
+
+const toggle = (i) => {
+  showAll.value[i] = !showAll.value[i];
+};
+
+const getVisibleStack = (p, i) => {
+  if (showAll.value[i]) return p.stack;
+  return p.stack.slice(0, 4);
+};
 
 function toSlug(title) {
   return title
     .toLowerCase()
-    .normalize("NFD")                
-    .replace(/[\u0300-\u036f]/g, "") 
-    .replace(/[^a-z0-9]+/g, "-")    
-    .replace(/(^-|-$)/g, "");      
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 </script>
 
 <style scoped>
-.texte {
-  font-family: "Helvetica", sans-serif;
-  letter-spacing: 2px;
+div::-webkit-scrollbar {
+  display: none;
 }
 </style>
