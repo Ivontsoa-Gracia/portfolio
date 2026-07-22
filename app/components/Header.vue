@@ -48,49 +48,105 @@
             <Icon name="lucide:search" class="w-3 h-3" />
             <div class="flex gap-1">
               <span class="bg-[#000]/20 rounded-md px-1.5 py-1">CTRL</span>
-            <span class="bg-[#000]/20 rounded-md px-1.5 py-1">K</span>
+              <span class="bg-[#000]/20 rounded-md px-1.5 py-1">K</span>
             </div>
-
           </button>
 
           <NuxtLink
             to="/contact"
             class="hidden md:flex btn magnetic-btn-primary text-sm !py-2 !px-5"
           >
-          Parlons-en
+            Parlons-en
           </NuxtLink>
 
-          <button @click="mobileOpen = true" class="md:hidden text-white p-2">
-            <Icon name="lucide:menu" size="20" />
+          <button
+            @click="mobileOpen = true"
+            class="md:hidden group relative flex items-center justify-center size-12 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-white/30"
+          >
+            <span
+              class="absolute inset-0 rounded-full bg-white/10 scale-0 group-hover:scale-100 transition-transform duration-500"
+            ></span>
+
+            <Icon
+              name="lucide:arrow-up-right"
+              size="20"
+              class="relative text-white transition-transform duration-500 group-hover:rotate-45"
+            />
           </button>
         </div>
       </div>
     </div>
-
-    <Transition name="fade">
-      <div
-        v-if="mobileOpen"
-        class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
-      >
-        <button
-          class="absolute top-6 right-6 text-white"
-          @click="mobileOpen = false"
-        >
-          <Icon name="lucide:x" size="28" />
-        </button>
-
-        <NuxtLink
-          v-for="link in links"
-          :key="link.to"
-          :to="link.to"
-          class="text-2xl font-semibold text-white/70 hover:text-white transition"
-          @click="mobileOpen = false"
-        >
-          {{ link.label }}
-        </NuxtLink>
-      </div>
-    </Transition>
   </header>
+
+  <Transition name="menu">
+    <div
+      v-if="mobileOpen"
+      class="fixed inset-0 z-50 bg-black/40 backdrop-blur-2xl flex items-center justify-center p-6"
+    >
+      <div
+        class="relative w-full max-w-sm rounded-[32px] border border-white/10 bg-white/[0.04] shadow-[0_25px_80px_rgba(0,0,0,.55)] overflow-hidden"
+      >
+        <div
+          class="flex items-center justify-between px-7 py-6 border-b border-white/10"
+        >
+          <div>
+            <p class="text-white font-semibold tracking-wide">Portfolio</p>
+
+            <p class="text-white/50 text-sm mt-1">
+              Digital Design & Engineering
+            </p>
+          </div>
+
+          <button
+            class="flex items-center justify-center size-10 rounded-full bg-white/5 hover:bg-white/10 transition"
+            @click="mobileOpen = false"
+          >
+            <Icon name="lucide:x" size="20" class="text-white" />
+          </button>
+        </div>
+
+        <nav class="p-4">
+          <NuxtLink
+            v-for="link in links"
+            :key="link.to"
+            :to="link.to"
+            @click="mobileOpen = false"
+            class="group flex items-center justify-between rounded-2xl px-5 py-4 hover:bg-white/5 transition-all duration-300"
+          >
+            <div>
+              <p
+                class="text-lg font-medium text-white group-hover:translate-x-1 transition"
+              >
+                {{ link.label }}
+              </p>
+
+              <p class="text-sm text-white/40">
+                {{ link.description }}
+              </p>
+            </div>
+
+            <Icon
+              name="lucide:arrow-up-right"
+              class="text-white/30 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition"
+            />
+          </NuxtLink>
+        </nav>
+
+        <div class="border-t border-white/10 p-5">
+          <NuxtLink
+            to="/contact"
+            @click="mobileOpen = false"
+            class="flex items-center justify-between rounded-full bg-white px-6 py-4 text-black font-medium hover:scale-[1.02] transition"
+          >
+            Parlons de votre projet
+
+            <Icon name="lucide:arrow-right" size="18" />
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+  </Transition>
+
   <Transition name="fade">
     <div
       v-if="open"
