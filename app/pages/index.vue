@@ -1,39 +1,26 @@
 <template>
   <div
-    class="min-h-screen bg-[#f1f1f1] text-black overflow-y-hidden overflow-x-hidden relative"
+    class="min-h-screen text-black overflow-y-hidden overflow-x-hidden relative"
   >
-    <div
-      class="absolute top-64 -right-32 w-[800px] h-[500px] sm:bg-[#F5EE6C] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
-    ></div>
-
-    <div
-      class="absolute top-48 -left-80 w-[1000px] h-[400px] sm:bg-[#FC523B] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
-    ></div>
-
-    <div
-      class="absolute -top-48 right-[-100px] w-[800px] h-[400px] bg-[#FF812C] opacity-40 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] blur-3xl"
-    ></div>
-
     <section id="accueil">
-      <Hero />
+      <HomeHero />
     </section>
-    <section id="a-propos">
-      <About />
-    </section>
-    <section id="vision">
-      <Vision />
-      <Processus />
-    </section>
-    <section id="expertise">
-      <Skills />
-    </section>
-    <section id="services">
-      <Services />
+    <section>
+      <HomeCraft />
     </section>
     <section id="projets">
-      <Projets />
+      <HomeProjects :projects="selectedProjects" :featured="featuredProject" />
     </section>
-    <Formations />
+    <section id="expertise">
+      <HomeExpertise />
+    </section>
+    <section id="HomeServices">
+      <HomeServices />
+    </section>
+
+    <section id="a-propos">
+      <HomeCTA />
+    </section>
     <Footer />
     <div
       ref="magicParticles"
@@ -42,23 +29,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: "custom",
 });
-
-import Hero from "~/components/Hero.vue";
-import About from "~/components/About.vue";
-import Formations from "~/components/Formations.vue";
-import Processus from "~/components/Processus.vue";
-import Vision from "~/components/Vision.vue";
-import Services from "~/components/Services.vue";
-import Resultats from "~/components/Resultats.vue";
 import Footer from "~/components/Footer.vue";
-import Skills from "~/components/Skills.vue";
-import Projets from "~/components/Projets.vue";
 
 import { ref, onMounted } from "vue";
+import HomeHero from "~/components/home/HomeHero.vue";
+import HomeCraft from "~/components/home/HomeCraft.vue";
+import HomeProjects from "~/components/home/HomeProjects.vue";
+import HomeExpertise from "~/components/home/HomeExpertise.vue";
+import HomeServices from "~/components/home/HomeServices.vue";
+import HomeCTA from "~/components/home/HomeCTA.vue";
 
 onMounted(() => {
   const phrase = "Le centre n’est jamais neutre.";
@@ -126,15 +109,18 @@ onMounted(() => {
     }
   }, 200);
 });
-</script>
 
-<style scoped>
-.link {
-  @apply text-white hover:text-gray-300 transition duration-300;
-}
-.logo-type {
-  font-family: "Pirulen", sans-serif;
-  letter-spacing: 2px;
-  font-weight: normal;
-}
-</style>
+const selectedProjects = ref([]);
+const featuredProject = ref(null);
+
+onMounted(async () => {
+  const data = await $fetch("/api/projects");
+  console.log("✅ all projects:", JSON.stringify(data));
+  
+  selectedProjects.value = data.filter((p) => p.isSelected === true);
+  featuredProject.value = data.find((p) => p.isFeatured === true) ?? null;
+  
+  console.log("✅ selectedProjects:", JSON.stringify(selectedProjects.value.map(p => p.slug), null, 2));
+  console.log("✅ featuredProject:", featuredProject.value?.slug ?? "null");
+});
+</script>

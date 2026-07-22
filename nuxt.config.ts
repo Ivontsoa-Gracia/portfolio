@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxt/icon'],
   css: ['@/assets/css/main.css'],
   tailwindcss: {
     configPath: 'tailwind.config.ts',
@@ -30,9 +30,13 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
+    preset: "node-server",
     compressPublicAssets: true,
     routeRules: {
       '/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/api/**': {
+        headers: { 'Content-Type': 'application/json; charset=utf-8' }
+      }
     },
   },
   

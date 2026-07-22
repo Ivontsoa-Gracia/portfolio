@@ -1,6 +1,9 @@
 <template>
-  <div class="min-h-screen bg-white text-black overflow-y-hidden overflow-x-hidden">
+  <div class="overflow-y-hidden overflow-x-hidden">
+    <ContactHero />
     <Contact />
+    <ContactFAQ />
+    <ContactCTA />
     <Footer />
   </div>
 </template>
@@ -10,17 +13,9 @@ definePageMeta({
   layout: "custom",
 });
 
-import Contact from "~/components/Contact.vue";
+import ContactHero from "~/components/contact/ContactHero.vue";
+import Contact from "~/components/contact/Contact.vue";
+import ContactFAQ from "~/components/contact/ContactFAQ.vue";
+import ContactCTA from "~/components/contact/ContactCTA.vue";
 import Footer from "~/components/Footer.vue";
 </script>
-
-<style scoped>
-.link {
-  @apply text-white hover:text-gray-300 transition duration-300;
-}
-.logo-type {
-  font-family: "Pirulen", sans-serif;
-  letter-spacing: 2px;
-  font-weight: normal;
-}
-</style>
