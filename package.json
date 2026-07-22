@@ -11,16 +11,25 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@iconify-json/lucide": "^1.2.111",
+    "@nuxt/icon": "^2.2.3",
     "@nuxtjs/sitemap": "^7.4.7",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^6.19.3",
+    "@prisma/engines": "^7.8.0",
     "aos": "^2.3.4",
+    "dotenv": "^17.4.2",
     "lottie-web": "^5.13.0",
     "nuxt": "^4.1.2",
+    "pg": "^8.21.0",
+    "prisma": "^6.19.3",
     "sharp": "^0.34.4",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@nuxt/devtools": "^2.6.5",
-    "@nuxtjs/tailwindcss": "^6.14.0"
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@types/pg": "^8.20.0"
   }
 }

@@ -1,13 +1,19 @@
 <template>
+  <div v-if="loading" class="page-loader">
+    <div class="loader-ring"></div>
+  </div>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { ref, onMounted } from "vue"
+import AOS from "aos"
+import "aos/dist/aos.css"
+
+const loading = ref(true)
+const nuxtApp = useNuxtApp()
 
 onMounted(() => {
   AOS.init({
@@ -15,56 +21,120 @@ onMounted(() => {
     easing: "ease-out-cubic",
     once: true,
     mirror: false,
-  });
-});
+  })
+
+  setTimeout(() => {
+    loading.value = false
+  }, 600)
+})
+
+nuxtApp.hook("page:start", () => {
+  loading.value = true
+})
+
+nuxtApp.hook("page:finish", () => {
+  setTimeout(() => {
+    loading.value = false
+  }, 300)
+})
 
 useHead({
-  title: "Ivo Andrianah - Portfolio",
+  title: "Gracia Andriamihamina - Digital Product Designer & Full-Stack Engineer",
+
   meta: [
     {
       name: "description",
       content:
-        "Ivo Andrianah est ingénieure logicielle, designer UI/UX et designer de marque. Elle conçoit des systèmes digitaux modernes, centrés utilisateur et orientés produit.",
+        "Portfolio de Gracia Andriamihamina, Digital Product Designer et Full-Stack Engineer. Elle conçoit des produits digitaux, des interfaces UI/UX intuitives, des identités de marque et des applications web modernes.",
     },
+
     {
       name: "keywords",
       content:
-        "portfolio, ingénieure logicielle, développeuse web, UI UX designer, brand designer, design produit, développement web Madagascar, systèmes digitaux, interface utilisateur",
+        "Gracia Andriamihamina, portfolio développeur web, full-stack engineer, software engineer Madagascar, UI UX designer, product designer, brand designer, design digital, développement application web, Nuxt.js, Vue.js, Python, Java, architecture logicielle, identité visuelle",
     },
-    { name: "robots", content: "index, follow" },
+
+    {
+      name: "author",
+      content: "Gracia Andriamihamina",
+    },
+
+    {
+      name: "robots",
+      content: "index, follow",
+    },
+
+    {
+      name: "googlebot",
+      content: "index, follow",
+    },
 
     {
       property: "og:title",
-      content: "Ivo Andrianah — Ingénieure Logicielle & UI/UX Designer",
+      content:
+        "Gracia Andriamihamina - Digital Product Designer & Full-Stack Engineer",
     },
+
     {
       property: "og:description",
       content:
-        "Portfolio d’Ivo Andrianah : conception et développement de systèmes digitaux, design UI/UX et création d’identités de marque.",
+        "Découvrez le portfolio de Gracia Andriamihamina : conception de produits digitaux, développement full-stack, UI/UX design et création d'identités de marque.",
     },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://portfolio-andrianah.vercel.app/" },
+
+    {
+      property: "og:type",
+      content: "website",
+    },
+
+    {
+      property: "og:locale",
+      content: "fr_FR",
+    },
+
+    {
+      property: "og:url",
+      content: "https://portfolio-andrianah.vercel.app/",
+    },
+
     {
       property: "og:image",
       content: "https://portfolio-andrianah.vercel.app/logo.png",
     },
 
-    { name: "twitter:card", content: "summary_large_image" },
+    {
+      property: "og:image:alt",
+      content:
+        "Portfolio de Gracia Andriamihamina — Digital Design & Engineering",
+    },
+
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+
     {
       name: "twitter:title",
-      content: "Ivo Andrianah — Portfolio Ingénierie & Design",
+      content:
+        "Gracia Andriamihamina — Digital Design & Engineering",
     },
+
     {
       name: "twitter:description",
       content:
-        "Ingénieure logicielle et designer UI/UX, spécialisée dans les systèmes digitaux et les expériences produit.",
+        "Full-Stack Engineer et Digital Product Designer spécialisée dans la création d'applications web, expériences UI/UX et identités visuelles.",
     },
+
     {
       name: "twitter:image",
       content: "https://portfolio-andrianah.vercel.app/logo.png",
     },
   ],
+
   link: [
+  {
+      rel: "canonical",
+      href: "https://portfolio-andrianah.vercel.app/",
+    },
     {
       rel: "stylesheet",
       href: "https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css",
@@ -159,6 +229,12 @@ useHead({
       type: "font/otf",
       crossorigin: "anonymous",
     },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap'
+    }
   ],
 });
 </script>

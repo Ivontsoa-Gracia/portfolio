@@ -1,200 +1,221 @@
 <template>
   <header
-    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-6xl transition-all duration-300 rounded-full p-2"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
     :class="
-      scrolled
-        ? 'bg-white/40 backdrop-blur-xl shadow-md border border-white'
-        : 'bg-transparent border border-transparent'
+      scrolled ? 'backdrop-blur-xl bg-black/40 border-b border-white/10' : ''
     "
   >
-    <div class="flex items-center justify-between px-4">
-      <div class="text-lg text-[#9A0130] font-semibold">Portfolio</div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-3 text-white font-heading"
+        >
+          <img
+            src="/gracia_logo/logo_background.png"
+            class="w-10 h-10 rounded-lg"
+          />
 
-      <nav
-        class="hidden md:flex items-center gap-8 text-sm text-black/80 font-medium relative"
-      >
-        <template v-for="link in links" :key="link.name">
-          <a
-            v-if="link.type === 'link'"
-            :href="link.href"
-            class="nav-link"
-            @click="closeAll"
-          >
-            {{ link.name }}
-          </a>
+          <div
+            class="w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent"
+          ></div>
 
-          <button v-else @click="scrollToSection(link.target)" class="nav-link">
-            {{ link.name }}
-          </button>
-        </template>
-
-        <div class="relative hidden">
-          <button @click="toggleDropdown('blog')" class="nav-link">Blog</button>
-
-          <div v-if="dropdown === 'blog'" class="dropdown">
-            <a href="#" class="dropdown-item">Articles</a>
-            <a href="#" class="dropdown-item">Tutoriels</a>
+          <div class="flex flex-col leading-tight">
+            <span class="text-lg font-light">Portfolio</span>
+            <span class="text-[8px] uppercase tracking-[0.2em] text-[white/70]">
+              Digital Design & Engineering
+            </span>
           </div>
-        </div>
-      </nav>
+        </NuxtLink>
 
-      <button @click="$router.push('/contact')" class="btn-primary">
-        Me contacter
-      </button>
-
-      <button class="md:hidden text-2xl" @click="isOpen = !isOpen">
-        <i :class="isOpen ? 'bx bx-x' : 'bx bx-menu'"></i>
-      </button>
-    </div>
-
-    <div
-      v-if="isOpen"
-      class="md:hidden mt-4 rounded-3xl bg-white/90 backdrop-blur-xl border border-black/10 shadow-lg overflow-hidden"
-    >
-      <div class="flex flex-col gap-4 p-6 text-black/70 text-left">
-        <template v-for="link in links" :key="link.name">
-          <a
-            v-if="link.type === 'link'"
-            :href="link.href"
-            class=""
-            @click="closeAll"
+        <nav class="hidden md:flex items-center gap-8">
+          <NuxtLink
+            v-for="link in links"
+            :key="link.to"
+            :to="link.to"
+            class="nav-link"
+            :class="{ active: route.path === link.to }"
           >
-            {{ link.name }}
-          </a>
+            {{ link.label }}
+          </NuxtLink>
+        </nav>
 
+        <div class="flex items-center gap-3">
           <button
-            v-else
-            @click="scrollToSection(link.target)"
-            class="text-left"
+            @click="openCmd"
+            class="hidden sm:flex items-center gap-4 px-3 py-1.5 rounded-lg border border-white/10 text-xs text-white/40 hover:text-white/60 hover:border-white/20 transition-all"
           >
-            {{ link.name }}
-          </button>
-        </template>
+            <Icon name="lucide:search" class="w-3 h-3" />
+            <div class="flex gap-1">
+              <span class="bg-[#000]/20 rounded-md px-1.5 py-1">CTRL</span>
+            <span class="bg-[#000]/20 rounded-md px-1.5 py-1">K</span>
+            </div>
 
-        <button @click="$router.push('/contact')" class="mt-2 btn-primary">
-          Me contacter
-        </button>
+          </button>
+
+          <NuxtLink
+            to="/contact"
+            class="hidden md:flex btn magnetic-btn-primary text-sm !py-2 !px-5"
+          >
+          Parlons-en
+          </NuxtLink>
+
+          <button @click="mobileOpen = true" class="md:hidden text-white p-2">
+            <Icon name="lucide:menu" size="20" />
+          </button>
+        </div>
       </div>
     </div>
+
+    <Transition name="fade">
+      <div
+        v-if="mobileOpen"
+        class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
+      >
+        <button
+          class="absolute top-6 right-6 text-white"
+          @click="mobileOpen = false"
+        >
+          <Icon name="lucide:x" size="28" />
+        </button>
+
+        <NuxtLink
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
+          class="text-2xl font-semibold text-white/70 hover:text-white transition"
+          @click="mobileOpen = false"
+        >
+          {{ link.label }}
+        </NuxtLink>
+      </div>
+    </Transition>
   </header>
+  <Transition name="fade">
+    <div
+      v-if="open"
+      class="fixed inset-0 z-[999] bg-black/10 backdrop-blur-md flex items-start justify-center pt-[18vh]"
+      @click.self="close"
+    >
+      <div
+        class="w-[92%] max-w-xl bg-[#1a1a22] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+      >
+        <input
+          v-model="query"
+          type="text"
+          placeholder="Search pages, projects, services..."
+          class="cmd-input"
+          @keydown.esc="close"
+        />
+
+        <div class="cmd-results">
+          <NuxtLink
+            v-for="item in filteredItems"
+            :key="item.to"
+            :to="item.to"
+            class="cmd-item"
+            @click="close"
+          >
+            <Icon :name="item.icon" class="w-4 h-4" />
+            <span class="text-sm">{{ item.label }}</span>
+          </NuxtLink>
+
+          <div
+            class="cmd-item px-3 py-3 text-xs text-white/30 cursor-default"
+            style="color: var(--text-muted)"
+          >
+            Press <span class="cmd-shortcut">ESC</span> to close ·
+            <span class="cmd-shortcut">⌘K</span> to open
+          </div>
+        </div>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
 
-import { useRouter, useRoute } from "vue-router";
-
-const router = useRouter();
 const route = useRoute();
 
-const scrollToSection = async (id) => {
-  if (route.path !== "/") {
-    await router.push("/"); 
-
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 300);
-  } else {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-};
-
-const isOpen = ref(false);
+const mobileOpen = ref(false);
 const scrolled = ref(false);
-const dropdown = ref(null);
 
 const links = [
-  { name: "Accueil", type: "scroll", target: "accueil" },
-  { name: "À propos", type: "scroll", target: "a-propos" },
-  { name: "Expertise", type: "scroll", target: "expertise" },
-  { name: "Services", type: "scroll", target: "services" },
-  { name: "Vision", type: "scroll", target: "vision" },
-  { name: "Projets", type: "scroll", target: "projets" },
-  // { name: "Projets", type: "link", href: "/portfolio" },
+  { label: "Accueil", to: "/" },
+  { label: "Profil", to: "/studio" },
+  { label: "Projets", to: "/work" },
+  { label: "Services", to: "/services" },
+  { label: "Contact", to: "/contact" },
 ];
 
-const toggleDropdown = (menu) => {
-  dropdown.value = dropdown.value === menu ? null : menu;
-};
-
-const closeAll = () => {
-  dropdown.value = null;
-  isOpen.value = false;
-};
-
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 10;
-  dropdown.value = null;
+  scrolled.value = window.scrollY > 50;
 };
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  handleScroll();
 });
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
 
-// const scrollToSection = (id) => {
-//   const el = document.getElementById(id);
-//   if (el) {
-//     el.scrollIntoView({ behavior: "smooth" });
-//   }
-// };
+const open = ref(false);
+const query = ref("");
+
+const items = [
+  { label: "Home", to: "/", icon: "lucide:home" },
+  { label: "About", to: "/studio", icon: "lucide:user" },
+  { label: "Projects", to: "/work", icon: "lucide:layers" },
+  { label: "Services", to: "/services", icon: "lucide:zap" },
+  { label: "Demande de devis", to: "/contact/quote", icon: "lucide:file-text" },
+  { label: "Contact", to: "/contact", icon: "lucide:mail" },
+];
+
+const filteredItems = computed(() => {
+  return items.filter((i) =>
+    i.label.toLowerCase().includes(query.value.toLowerCase())
+  );
+});
+
+const openCmd = () => {
+  open.value = true;
+  query.value = "";
+  setTimeout(() => document.querySelector("input")?.focus(), 50);
+};
+
+const close = () => {
+  open.value = false;
+};
+
+defineExpose({ openCmd });
+
+const handleKey = (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+    open.value = !open.value;
+  }
+
+  if (e.key === "Escape") {
+    open.value = false;
+  }
+};
+
+onMounted(() => window.addEventListener("keydown", handleKey));
+onUnmounted(() => window.removeEventListener("keydown", handleKey));
 </script>
 
 <style scoped>
-.nav-link {
-  position: relative;
-  padding-bottom: 4px;
-  transition: 0.3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
 }
 
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 1px;
-  background: #000;
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* DROPDOWN CLEAN */
-.dropdown {
-  position: absolute;
-  top: 120%;
-  left: 0;
-  min-width: 160px;
-  padding: 10px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.dropdown-item {
-  padding: 6px 10px;
-  border-radius: 10px;
-  transition: 0.2s;
-}
-
-.dropdown-item:hover {
-  background: rgba(0, 0, 0, 0.05);
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

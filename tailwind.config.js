@@ -5,6 +5,7 @@ export default {
           pirulen: ['Pirulen', 'sans-serif'],
           gebuk: ['Gebuk', 'sans-serif'],
           remixaTest:['RemixaTest-Regular', 'sans-serif'],
+          heading: ['"Space Grotesk"', 'sans-serif'],
         },
         colors: {
           default: '#ffffff', 
