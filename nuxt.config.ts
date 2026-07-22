@@ -30,7 +30,6 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    preset: "node-server",
     compressPublicAssets: true,
     routeRules: {
       '/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
