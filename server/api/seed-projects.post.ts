@@ -16,7 +16,7 @@ export default defineEventHandler(async () => {
   const services = await prisma.service.findMany();
 
   const serviceUIUX = services.find((s) => s.title === "UI/UX Design");
-  const serviceWeb = services.find((s) => s.title === "Développement Web");
+  const serviceWeb = services.find((s) => s.title === "Développement");
   const serviceBranding = services.find((s) => s.title === "Branding");
 
   const projects = [
@@ -78,7 +78,7 @@ export default defineEventHandler(async () => {
       isFeatured: true,
       metric1: "10+ Pages",
       metric2: "98 Lighthouse",
-      domains: ["full-stack", "bdd", "api", "deploiement", "prototypes"],
+      domains: ["full-stack", "bdd", "api", "deploiement", "recherche", "user-flow", "prototypes", "ui-design", "design-system", "responsive-design"],
       services: [serviceWeb?.id, serviceUIUX?.id].filter(Boolean) as number[],
       stacks: ["Django", "Nuxt.js", "Tailwind CSS", "PostgreSQL", "Figma"],
       images: [
@@ -91,6 +91,7 @@ export default defineEventHandler(async () => {
         "/img/realisations/dev_mp_6.png",
         "/img/realisations/dev_mp_7.png",
         "/img/realisations/dev_mp_8.png",
+        "/img/realisations/maquette.png"
       ],
     },
     {
@@ -462,7 +463,7 @@ export default defineEventHandler(async () => {
 
     {
       slug: "identite-visuelle-alasoa",
-      titre: "Alasoa — Identité Visuelle & Branding",
+      titre: "Alasoa - Identité Visuelle & Branding",
       description: `
       
       Alasoa est une marque malgache spécialisée dans les cosmétiques naturels, proposant des produits de soin élaborés à partir d'ingrédients locaux. Le projet avait pour objectif de concevoir une identité visuelle capable de refléter les valeurs fondamentales de la marque : naturalité, authenticité, bien-être et qualité.
@@ -534,7 +535,7 @@ export default defineEventHandler(async () => {
 
     {
       slug: "identite-visuelle-running-mezanning",
-      titre: "Running Mezanning — Identité Visuelle & Branding",
+      titre: "Running Mezanning - Identité Visuelle & Branding",
       description: `
       
       Running Mezanning est une marque spécialisée dans la transformation alimentaire vegan, proposant des produits conçus autour d'une alimentation plus saine, responsable et accessible. Le projet avait pour objectif de concevoir une identité visuelle capable de traduire les valeurs de la marque tout en affirmant un positionnement moderne, dynamique et différenciant.
@@ -607,7 +608,7 @@ export default defineEventHandler(async () => {
 
     {
       slug: "communication-visuelle-smartsaha",
-      titre: "SmartSaha — Communication Visuelle & Design Produit",
+      titre: "SmartSaha - Communication Visuelle & Design Produit",
       description: `
 
       SmartSaha est une initiative dédiée à la digitalisation du secteur agricole à Madagascar, avec pour ambition de rendre les technologies numériques accessibles aux différents acteurs de la filière : producteurs, coopératives, acheteurs et partenaires institutionnels.
@@ -683,7 +684,7 @@ export default defineEventHandler(async () => {
 
     {
       slug: "communication-visuelle-stellar-z",
-      titre: "Stellar Z — Communication Visuelle & Direction Artistique",
+      titre: "Stellar Z - Communication Visuelle & Direction Artistique",
       description: `
       
       Stellar Z est une marque spécialisée dans la vente et la location de vélos tout-terrain, évoluant dans l'univers du sport, de la mobilité et des expériences outdoor.
@@ -826,10 +827,101 @@ export default defineEventHandler(async () => {
       isSelected: false,
       isFeatured: false,
       domains: ["full-stack", "recherche", "prototypes"],
-      services: [serviceBranding?.id].filter(Boolean) as number[],
-      stacks: ["Dolibarr", "Vue.js", "CSS", "Node.js", "PostgreSQL"],
+      services: [serviceWeb?.id, serviceUIUX?.id].filter(Boolean) as number[],
+      stacks: ["Dolibarr", "Vue.js", "CSS", "Node.js", "PostgreSQL", "Adobe XD"],
       images: [
-        "/img/realisations/dev_stellar_1.png"
+        "/img/realisations/dev_stellar_1.png",
+        "/img/realisations/uiux_1.png"
+      ],
+    },
+
+    {
+      slug: "my-bank",
+    
+      titre: "My Bank - Application de Gestion Bancaire",
+    
+      description: `
+    
+    Conception de l'expérience utilisateur et réalisation de la maquette interactive d'une application bancaire moderne destinée à faciliter la gestion des comptes et des opérations financières.
+    
+    Le projet avait pour objectif de proposer une interface intuitive permettant aux utilisateurs de consulter leurs comptes, d'effectuer des transferts, de suivre leurs transactions et d'accéder à un tableau de bord offrant une vue d'ensemble de leur situation financière.
+    
+    L'ensemble de l'application a été conçu en mettant l'accent sur la simplicité de navigation, la clarté des informations financières et une expérience utilisateur fluide adaptée à une utilisation quotidienne sur mobile et sur ordinateur.
+    
+    La phase de conception s'est concentrée sur la création d'une interface cohérente, moderne et évolutive répondant aux exigences d'une application bancaire numérique.
+    `,
+    
+      problem: `
+    
+    Les applications bancaires doivent permettre aux utilisateurs d'accéder rapidement à leurs informations financières tout en garantissant une navigation simple et rassurante.
+    
+    Plusieurs défis ont été identifiés lors de la conception :
+    
+    - organisation claire des informations financières ;
+    - accès rapide aux comptes et aux soldes ;
+    - simplification des opérations de transfert ;
+    - consultation fluide de l'historique des transactions ;
+    - création d'un tableau de bord synthétique facilitant le suivi des finances personnelles.
+    
+    Le principal objectif consistait à concevoir une interface capable de rendre les opérations bancaires quotidiennes plus accessibles tout en offrant une expérience utilisateur intuitive et cohérente.
+    `,
+    
+      solution: `
+    
+    Une démarche centrée sur l'utilisateur a été adoptée afin de concevoir une interface répondant aux principaux besoins liés à la gestion bancaire.
+    
+    Le travail de conception a couvert plusieurs fonctionnalités clés :
+    
+    - tableau de bord financier ;
+    - gestion des comptes bancaires ;
+    - consultation des transactions ;
+    - transferts d'argent entre comptes ;
+    - suivi des opérations récentes ;
+    - navigation simplifiée entre les différents services.
+    
+    Des wireframes puis des maquettes haute fidélité ont été réalisés afin de définir les parcours utilisateurs et de valider l'organisation des différents écrans.
+    
+    Une attention particulière a été portée à la hiérarchisation des informations, à la lisibilité des données financières et à la cohérence de l'identité visuelle afin d'offrir une expérience moderne et rassurante.
+    
+    L'ensemble des écrans a ensuite été transformé en prototype interactif permettant de simuler les principales interactions de l'application et de visualiser les différents parcours utilisateurs.
+    `,
+    
+      result: `
+    
+    Le projet a abouti à un prototype fonctionnel illustrant les principaux usages d'une application bancaire numérique moderne.
+    
+    Les principaux résultats obtenus :
+    
+    - conception d'une expérience utilisateur fluide et intuitive ;
+    - réalisation de maquettes haute fidélité cohérentes ;
+    - création d'un prototype interactif facilitant la démonstration des parcours utilisateurs ;
+    - amélioration de la lisibilité des informations financières ;
+    - structuration efficace des fonctionnalités bancaires autour d'un tableau de bord central.
+    
+    Le projet constitue une base solide pour le développement futur d'une application bancaire intégrant des fonctionnalités avancées telles que les paiements en ligne, les notifications en temps réel ou encore la gestion budgétaire personnalisée.
+    `,
+    
+      category: "UI/UX Design",
+    
+      isSelected: false,
+      isFeatured: false,
+    
+      domains: [
+        "recherche",
+        "user-flow",
+        "wireframes",
+        "prototypes",
+        "ui-design",
+      ],
+    
+      services: [serviceUIUX?.id].filter(Boolean) as number[],
+    
+      stacks: [
+        "Adobe XD"
+      ],
+    
+      images: [
+        "/img/realisations/uiux_2.png",
       ],
     },
 
@@ -917,6 +1009,94 @@ export default defineEventHandler(async () => {
         "/img/realisations/brand_identity_madarom – 5.png",
         "/img/realisations/brand_identity_madarom – 6.png",
         "/img/realisations/brand_identity_madarom.png",
+      ],
+    },
+    {
+      slug: "refonte-site-republique-malagasy",
+    
+      titre: "Refonte du Site de la République Malagasy",
+    
+      description: `
+    
+    Conception d'une proposition de refonte de l'interface du site officiel de la République Malagasy dans le cadre d'un projet de design UX/UI.
+    
+    L'objectif était de repenser l'expérience utilisateur en proposant une interface plus moderne, accessible et intuitive, tout en conservant le caractère institutionnel de la plateforme.
+    
+    Le projet s'est concentré sur l'amélioration de la navigation, la valorisation des informations publiques et l'optimisation de la consultation des contenus sur différents types d'appareils.
+    
+    Cette proposition visait à démontrer comment une approche centrée sur l'utilisateur pouvait renforcer la qualité des services numériques proposés aux citoyens.
+    `,
+    
+      problem: `
+    
+    Les plateformes institutionnelles regroupent une grande quantité d'informations destinées à différents profils d'utilisateurs, ce qui peut rendre la navigation complexe.
+    
+    Les principaux enjeux identifiés étaient :
+    
+    - organisation peu intuitive des contenus ;
+    - difficulté d'accès aux informations essentielles ;
+    - hiérarchisation visuelle perfectible ;
+    - navigation nécessitant plusieurs étapes pour atteindre certains services ;
+    - interface nécessitant une modernisation afin d'améliorer l'expérience utilisateur.
+    
+    Le défi consistait à concevoir une nouvelle interface capable de faciliter l'accès aux informations tout en respectant l'identité d'un site gouvernemental.
+    `,
+    
+      solution: `
+    
+    Une démarche UX/UI a été mise en œuvre afin de repenser entièrement l'organisation des contenus et les parcours utilisateurs.
+    
+    Le travail a porté sur plusieurs aspects :
+    
+    - restructuration de l'architecture de l'information ;
+    - création de wireframes ;
+    - conception de maquettes haute fidélité ;
+    - amélioration de la navigation principale ;
+    - mise en valeur des actualités, services et informations administratives ;
+    - adaptation de l'interface aux usages sur ordinateur, tablette et mobile.
+    
+    Une attention particulière a été portée à la lisibilité des contenus, à la cohérence graphique et à la simplicité des interactions afin de proposer une expérience plus fluide et accessible.
+    
+    L'ensemble des écrans a été intégré dans un prototype interactif permettant de simuler les principaux parcours de navigation.
+    `,
+    
+      result: `
+    
+    Le projet a abouti à une proposition complète de refonte visuelle et fonctionnelle du site institutionnel.
+    
+    Les principaux résultats obtenus :
+    
+    - amélioration de la navigation entre les différentes rubriques ;
+    - meilleure hiérarchisation des informations publiques ;
+    - interface moderne et cohérente avec les standards actuels du web ;
+    - expérience utilisateur plus intuitive ;
+    - prototype interactif facilitant la présentation et l'évaluation des parcours utilisateurs.
+    
+    Cette proposition démontre comment une refonte centrée sur les besoins des utilisateurs peut améliorer l'accessibilité et la qualité des services numériques proposés par une administration publique.
+    `,
+    
+      category: "UI/UX Design",
+    
+      isSelected: false,
+      isFeatured: false,
+    
+      domains: [
+        "recherche",
+        "architecture-information",
+        "user-flow",
+        "wireframes",
+        "prototypes",
+        "ui-design",
+      ],
+    
+      services: [serviceUIUX?.id].filter(Boolean) as number[],
+    
+      stacks: [
+        "Adobe XD"
+      ],
+    
+      images: [
+        "/img/realisations/uiux_4.png",
       ],
     },
   ];

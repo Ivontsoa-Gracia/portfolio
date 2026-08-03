@@ -22,7 +22,7 @@
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-          <div class="max-w-4xl">
+          <div class="max-w-6xl">
             <div class="flex flex-wrap gap-2 mb-6">
               <span
                 v-for="d in project.domains"
@@ -87,7 +87,9 @@
       <section class="py-24">
         <div class="max-w-4xl mx-auto px-6">
           <p class="text-sm small-text mb-3">Aperçu</p>
-          <h2 class="font-heading text-4xl font-bold mb-8">Présentation du projet</h2>
+          <h2 class="font-heading text-4xl font-bold mb-8">
+            Présentation du projet
+          </h2>
 
           <template v-for="(block, index) in contentDescription" :key="index">
             <h2
@@ -165,7 +167,9 @@
       <section class="py-24">
         <div class="max-w-4xl mx-auto px-6">
           <p class="text-sm small-text mb-3">Solution</p>
-          <h2 class="font-heading text-4xl font-bold mb-8">Approche de conception</h2>
+          <h2 class="font-heading text-4xl font-bold mb-8">
+            Approche de conception
+          </h2>
 
           <template v-for="(block, index) in contentSolution" :key="index">
             <h2
@@ -207,12 +211,13 @@
             <div
               v-for="image in project.images"
               :key="image.id"
-              class="glass-card overflow-hidden rounded-2xl"
+              class="glass-card overflow-hidden rounded-2xl cursor-zoom-in"
+              @click="openImage(image.url)"
             >
               <img
                 :src="image.url"
                 :alt="project.titre"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover transition duration-300 hover:scale-105"
               />
             </div>
           </div>
@@ -222,7 +227,9 @@
       <section class="py-24 bg-[#08080c]">
         <div class="max-w-4xl mx-auto px-6">
           <p class="text-sm small-text mb-3">Résultats</p>
-          <h2 class="font-heading text-4xl font-bold mb-8">Résultats & Impact</h2>
+          <h2 class="font-heading text-4xl font-bold mb-8">
+            Résultats & Impact
+          </h2>
 
           <template v-for="(block, index) in contentResult" :key="index">
             <h2
@@ -261,7 +268,9 @@
       <section class="py-24">
         <div class="max-w-4xl mx-auto px-6">
           <p class="text-sm small-text mb-3">Technologies</p>
-          <h2 class="font-heading text-4xl font-bold mb-8">Outils & Stack technique</h2>
+          <h2 class="font-heading text-4xl font-bold mb-8">
+            Outils & Stack technique
+          </h2>
           <div class="flex flex-wrap gap-3">
             <span
               v-for="s in project.stacks"
@@ -278,6 +287,46 @@
     <ProjectsCTA />
     <Footer />
   </main>
+  <Teleport to="body">
+    <Transition name="lightbox">
+      <div
+        v-if="selectedImage"
+        class="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-black/10 backdrop-blur-md p-6"
+        @click="closeImage"
+      >
+        <!-- Ambient background -->
+        <!-- <div
+        class="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 pointer-events-none"
+      /> -->
+
+        <!-- Close button -->
+        <button
+          class="absolute top-8 right-8 z-10 group flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all duration-300 hover:bg-white/15 hover:scale-110"
+          @click="closeImage"
+        >
+          <span
+            class="flex items-center justify-center text-2xl font-light transition-transform group-hover:rotate-90"
+          >
+            <Icon name="lucide:x" size="20" class="text-white" />
+          </span>
+        </button>
+
+        <div class="relative z-10 flex items-center justify-center" @click.stop>
+          <img
+            :src="selectedImage"
+            :alt="project.titre"
+            class="max-h-[90vh] max-w-[90vw] object-contain rounded-2xl shadow-[0_30px_100px_rgba(0,0,0,0.7)] ring-1 ring-white/10"
+          />
+        </div>
+
+        <div
+          class="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-[10px] tracking-widest text-white/60 backdrop-blur-md"
+        >
+          CLICK OUTSIDE TO CLOSE
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -638,6 +687,16 @@ const components = {
 function getComponent(type: string) {
   return components[type];
 }
+
+const selectedImage = ref<string | null>(null);
+
+const openImage = (url: string) => {
+  selectedImage.value = url;
+};
+
+const closeImage = () => {
+  selectedImage.value = null;
+};
 </script>
 
 <style scoped>

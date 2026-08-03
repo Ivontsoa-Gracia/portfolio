@@ -47,6 +47,17 @@
             <p class="text-sm text-white/40 leading-relaxed">
               {{ item.description }}
             </p>
+
+            <a
+              v-if="item.credential"
+              :href="item.credential.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 mt-4 text-sm small-text hover:underline"
+            >
+              {{ item.credential.label }}
+              <Icon name="lucide:external-link" class="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>
@@ -56,29 +67,33 @@
 
 <script setup lang="ts">
 const journeys = [
+  // {
+  //   current: true,
+  //   period: "2026 — Aujourd'hui",
+  //   title: "Master en Informatique",
+  //   company: "IT University · Madagascar",
+  //   description:
+  //     "Spécialisation en ingénierie logicielle, Machine Learning et intelligence artificielle, avec une approche centrée sur l’innovation, les données et l’expérience utilisateur.",
+  // },
   {
     current: true,
-    period: "2026 — Aujourd'hui",
-    title: "Master en Informatique",
-    company: "IT University · Madagascar",
-    description:
-      "Spécialisation en ingénierie logicielle, Machine Learning et intelligence artificielle, avec une approche centrée sur l’innovation, les données et l’expérience utilisateur.",
-  },
-  {
-    current: false,
     period: "2025 — 2026",
     title: "Développeur Full Stack & Product Designer",
     company: "Entreprise · Madagascar",
     description:
-      "Participation à la création de produits numériques, de la conception UX/UI jusqu’au développement et au déploiement des applications.",
+      "Création de produits numériques complets combinant stratégie produit, UX/UI design, identité visuelle, développement d’applications web et mise en production de solutions performantes.",
   },
   {
     current: false,
-    period: "2022 — 2025",
+    period: "2022 — 2026",
     title: "Licence en Informatique",
-    company: "IT University · Madagascar",
+    company: "IT University · Graphic Design et Communication Digitale",
     description:
-      "Formation pluridisciplinaire combinant développement d'applications, UI/UX, design graphique, communication digitale et conception de produits numériques.",
+      "Formation polyvalente axée sur la conception et le développement de solutions numériques, combinant ingénierie logicielle, UI/UX design, design graphique, communication digitale et conception de produits digitaux.",
+    credential: {
+      label: "Vérification du diplôme",
+      url: "https://www.ituniversity-mg.com/page/check.php?id=xLemjRbmZr3",
+    },
   },
 ];
 </script>

@@ -115,12 +115,13 @@ const featuredProject = ref(null);
 
 onMounted(async () => {
   const data = await $fetch("/api/projects");
-  console.log("✅ all projects:", JSON.stringify(data));
+  // console.log("✅ all projects:", JSON.stringify(data));
   
   selectedProjects.value = data.filter((p) => p.isSelected === true);
   featuredProject.value = data.find((p) => p.isFeatured === true) ?? null;
   
-  console.log("✅ selectedProjects:", JSON.stringify(selectedProjects.value.map(p => p.slug), null, 2));
-  console.log("✅ featuredProject:", featuredProject.value?.slug ?? "null");
+  // console.log("✅ selectedProjects:", JSON.stringify(selectedProjects.value.map(p => p.slug), null, 2));
+  // console.log("✅ featuredProject:", featuredProject.value?.slug ?? "null");
 });
+
 </script>

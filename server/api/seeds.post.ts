@@ -5,10 +5,10 @@ export default defineEventHandler(async () => {
   await prisma.projectService.deleteMany();
   await prisma.projectStack.deleteMany();
   await prisma.projectDomain.deleteMany();
-  
+
   await prisma.projectImage.deleteMany();
   await prisma.projectVisit.deleteMany();
-  
+
   await prisma.service.deleteMany();
   await prisma.stack.deleteMany();
   await prisma.domain.deleteMany();
@@ -60,7 +60,7 @@ export default defineEventHandler(async () => {
       { name: "MySQL" },
       { name: "Dolibarr" },
       { name: "Django" },
-
+      { name: "Adobe XD" },
     ],
   });
 
@@ -107,14 +107,24 @@ export default defineEventHandler(async () => {
         label: "Maintenance",
         color: "#E76F51",
       },
-  
+
       // ======================
-      // UI/UX DESIGN
+      // UI / UX DESIGN
       // ======================
       {
         key: "recherche",
         label: "Recherche utilisateur",
         color: "#FFB4A2",
+      },
+      {
+        key: "architecture-information",
+        label: "Architecture de l'information",
+        color: "#FEC89A",
+      },
+      {
+        key: "user-flow",
+        label: "User Flow",
+        color: "#F9C74F",
       },
       {
         key: "wireframes",
@@ -123,8 +133,13 @@ export default defineEventHandler(async () => {
       },
       {
         key: "prototypes",
-        label: "Prototypes Figma",
+        label: "Prototypage",
         color: "#FFAFCC",
+      },
+      {
+        key: "ui-design",
+        label: "UI Design",
+        color: "#CDB4DB",
       },
       {
         key: "design-system",
@@ -132,11 +147,21 @@ export default defineEventHandler(async () => {
         color: "#B5838D",
       },
       {
+        key: "responsive-design",
+        label: "Responsive Design",
+        color: "#84A59D",
+      },
+      {
+        key: "accessibilite",
+        label: "Accessibilité",
+        color: "#6D597A",
+      },
+      {
         key: "tests",
         label: "Tests utilisateurs",
         color: "#A06CD5",
       },
-  
+      
       // ======================
       // BRAND DESIGN
       // ======================
