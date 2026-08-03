@@ -56,12 +56,12 @@
               to="/work"
               class="magnetic-btn magnetic-btn-primary inline-flex items-center gap-2"
             >
-              View Projects
+            Voir les projets
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </NuxtLink>
 
             <NuxtLink to="/contact" class="magnetic-btn magnetic-btn-secondary">
-              Get in Touch
+              Me contacter
             </NuxtLink>
           </div>
 

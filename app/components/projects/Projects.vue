@@ -29,15 +29,15 @@
           </div>
 
           <div class="p-6">
-            <div class="flex flex-wrap gap-2 mb-3">
+            <div class="flex flex-wrap gap-2 mb-3 overflow-hidden">
               <span
                 v-for="d in project.domains"
                 :key="d.domain.key"
-                class="text-xs px-2.5 py-1 rounded-full border"
+                class="text-xs px-2.5 py-1 rounded-full border whitespace-nowrap"
                 :style="{
                   color: d.domain.color,
                   borderColor: d.domain.color,
-                  backgroundColor: d.domain.color + '20'
+                  backgroundColor: d.domain.color + '20',
                 }"
               >
                 {{ d.domain.label }}
@@ -75,10 +75,10 @@ const filters = computed(() => {
 
   return [
     { label: "Tous les projets", value: "all" },
-    ...props.services.map((s:any)=>({
-      label:s.title,
-      value:String(s.id)
-    }))
+    ...props.services.map((s: any) => ({
+      label: s.title,
+      value: String(s.id),
+    })),
   ];
 });
 

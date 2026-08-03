@@ -204,3 +204,11 @@ model ProjectVisit {
   @@index([visitorId])
   @@index([projectId])
 }
+
+model DeviceToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  platform  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
