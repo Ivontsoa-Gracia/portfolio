@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   site: {
-    url: "http://localhost:3000",
+    url: "https://portfolio-andrianah.vercel.app/",
     name: "Gracia Portfolio",
   },
   devtools: { enabled: false },
