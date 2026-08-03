@@ -35,12 +35,15 @@ export default defineEventHandler(async (event) => {
   //   email,
   // });
 
+  console.log("PRISMA KEYS :", Object.keys(prisma))
+  console.log("DEVICE TOKEN :", prisma.deviceToken)
+
   const devices = await prisma.deviceToken.findMany();
 
   const tokens = devices.map((device: { token: any }) => device.token);
 
   console.log("devices:", devices)
-console.log("tokens:", tokens)
+  console.log("tokens:", tokens)
 
   await sendPushNotification(tokens, {
     title: "Nouveau contact",
