@@ -66,7 +66,7 @@
             data-aos-delay="100"
           >
             <a
-              href="/cv/Gracia_Andriamihamina_Resume.pdf"
+              href="/cv/CV_Gracia_Andriamihamina_2026.pdf"
               download
               class="magnetic-btn magnetic-btn-primary flex items-center gap-2"
             >
