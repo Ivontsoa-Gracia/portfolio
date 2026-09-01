@@ -203,7 +203,7 @@ const links = [
   { label: "Profil", to: "/studio" },
   { label: "Projets", to: "/work" },
   { label: "Services", to: "/services" },
-  { label: "Contact", to: "/contact" },
+  // { label: "Contact", to: "/contact" },
 ];
 
 const handleScroll = () => {
